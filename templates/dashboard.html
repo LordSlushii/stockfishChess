@@ -16,7 +16,7 @@
             <h1>Predict Best Move</h1>
              <p>Enter Opponent's Input: </p>
             <input type="text" name="user_input" id="user_input" required>
-            <button type="submit">Submit</button>
+            <button type="submit" class = "submit">Submit</button>
          </form>
 
             <div class = "predictionHeader">
@@ -25,8 +25,9 @@
             <div class = "predictor">
                 <label> {{MOVE}} </label>
             </div>
-            <a href = "/">Logout</a>
-
+            <form action="/logout" method="get">
+                <button type="submit" class = "logout">Logout</button>
+            </form>
     </div>
 </body>
 </html>
