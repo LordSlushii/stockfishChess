@@ -85,7 +85,7 @@ input {
     position: relative;
 }
 
-button {
+.submit {
      background: rgb(137, 220, 144);
      border-radius: 4px;
      cursor: pointer;
@@ -97,7 +97,25 @@ button {
      transition: transform 0.2s ease-in-out;
 }
 
-button:hover {
+.submit:hover {
+    background: rgb(116, 186, 123);
+    transform: scale(1.1);
+}
+
+.logout {
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    font-size:15px;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 20px;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+    justify-content: center;
+    background-color: #89dc90;
+}
+
+.logout:hover {
     background: rgb(116, 186, 123);
     transform: scale(1.1);
 }
