@@ -1,37 +1,40 @@
+import requests
 import chess
-import chess.engine
 
 # Persistent board instance
 board = chess.Board()
 
-def stockfishPrediction(opponentMove):
-    stockfish_path = "/Users/navaneethkrishna/Downloads/stockfish/stockfish-macos-m1-apple-silicon"
-    engine = chess.engine.SimpleEngine.popen_uci(stockfish_path)
+# Lichess Cloud Analysis API (No token required)
+LICHESS_API_URL = "https://lichess.org/api/cloud-eval"
 
-    global board  # Use the same board instance
+def stockfishPrediction(opponentMove):
+    global board
 
     try:
         move = chess.Move.from_uci(opponentMove.strip())
         if move in board.legal_moves:
             board.push(move)
         else:
-            engine.quit()
             return "Invalid move!"
     except:
-        engine.quit()
         return "Invalid input!"
 
     if board.is_game_over():
-        engine.quit()
         return "Game Over!"
 
-    # Get best move from Stockfish
-    result = engine.play(board, chess.engine.Limit(time=1.0))
-    best_move = result.move
-    board.push(best_move)
+    # Request best move from Lichess
+    params = {"fen": board.fen(), "multiPv": 1}
+    response = requests.get(LICHESS_API_URL, params=params)
 
-    engine.quit()
-    return best_move.uci()  # Return move in UCI format
+    if response.status_code == 200:
+        best_move = response.json().get("pvs", [{}])[0].get("moves", "").split()[0]
+        if best_move:
+            board.push(chess.Move.from_uci(best_move))
+            return best_move
+        else:
+            return "No move found!"
+    else:
+        return f"Error from Lichess: {response.status_code}, {response.text}"
 
 # Function to reset the board when logging out
 def reset_board():
