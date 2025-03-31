@@ -1,0 +1,103 @@
+body {
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.head {
+    margin-top: 10px;
+    position:relative;
+    padding: 2px;
+    display :flex;
+    justify-content: center;
+    color: rgb(137, 220, 144);
+
+}
+
+.head::before {
+    content: "";
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #003300, #001a00);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 0px 20px;
+    width: 30%;
+    margin: auto;
+    margin-top: 150px;
+    background: linear-gradient(to bottom right, #003300, #001a00);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    color: #89dc90;
+
+}
+
+.predictionHeader {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    width: 100%; /* Full width */
+    padding: 10px;
+    font-size: 18px;
+    color: #89dc90;
+}
+
+.predictor {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    width: 100%; /* Full width */
+    padding: 5px;
+    font-size: 50px;
+    font-weight: bold;
+    color: #e3ed5f;
+    align-items: center;
+}
+
+/* Add spacing between elements */
+.predictionHeader p, .predictor label {
+    margin-bottom: 10px; /* Adds space below each element */
+}
+
+a {
+    color: #89dc90;
+    margin-bottom: 20px;
+}
+
+input {
+    background-color: rgb(137, 220, 144);
+    color: #3c603e;
+    margin: 2px 0px 10px 15px;
+    padding: 10px 80px 10px 15px;
+    transition: transform 0.2s ease-in-out;
+    border: none;
+    border-radius: 5px;
+    z-index: 1;
+    position: relative;
+}
+
+button {
+     background: rgb(137, 220, 144);
+     border-radius: 4px;
+     cursor: pointer;
+     outline: none;
+     font-size:10px;
+     padding: 12px;
+     margin-left: 10px;
+     border: none;
+     transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background: rgb(116, 186, 123);
+    transform: scale(1.1);
+}
