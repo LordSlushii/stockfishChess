@@ -2,8 +2,10 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from getPrediction import stockfishPrediction
-
+from getPrediction import stockfishPrediction, reset_board
+import getPrediction
+import chess
+board = getPrediction.board
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -36,6 +38,7 @@ async def dashboard(request: Request):
 
     return templates.TemplateResponse("dashboard.html", {"request": request, "MOVE": best_move})
 
+
 @app.post("/process-input")
 async def process_input(user_input: str = Form(...)):
     global last_input, best_move
@@ -43,6 +46,21 @@ async def process_input(user_input: str = Form(...)):
     best_move = stockfishPrediction(user_input)
 
     return RedirectResponse(url="/dashboard", status_code=302)
+
+
+@app.get("/logout")
+async def logout():
+    global best_move, last_input
+
+    # Reset the board in getPrediction.py
+    reset_board()
+
+    # Clear moves
+    best_move = ""
+    last_input = ""
+
+    return RedirectResponse(url="/", status_code=302)
+
 
 
 if __name__ == "__main__":
